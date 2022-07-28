@@ -1,0 +1,1 @@
+isnull:{flip enlist(cols(value x)) ! {sum null t[x]}each cols(value x)}
