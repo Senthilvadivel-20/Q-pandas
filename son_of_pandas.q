@@ -8,3 +8,6 @@ get_type:{{:.p.qeval x}["(''.join(['J' if i=='int64' else 'F' if i=='float64' el
 
 //Read the csv
 read_csv:{(get_type x;enlist csv)0: hsym `$x}
+
+//Check null values in each column
+isnull:{flip enlist(cols(x)) ! {sum null t[x]}each cols(x)}
