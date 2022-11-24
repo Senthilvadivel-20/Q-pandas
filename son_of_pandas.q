@@ -30,7 +30,7 @@ mean:{"F"$.Q.f [2;] sum x%count x}
 stdev:{dev x}
 
 
-/values count
+/values counts
 values_count: {count each group x}
 
 /Viewing/Inspecting Data
