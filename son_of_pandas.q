@@ -12,6 +12,29 @@ read_csv:{(get_type x;enlist csv)0: hsym `$x}
 /read JSON
 read_json:{.j.k raze read0 hsym`$x}
 
+/ Percentail function is for find IQR
+Percentile:{[x;p]
+    x:asc x;
+    n: count x;
+    k : `long$((p%100) * n);
+    $[k=0;
+        :x[0];
+        k = n;
+        :x[-1];
+        [d: (((p % 100) * n) - k);
+        res:(x[k-1] + (d * (x[k] - x[k-1])));
+        :res]
+        ]
+    };
+
+/ describe function for stastical infrence 
+describe:{
+    cl: (cols x) where ((0!(meta x))[`t] in ("i";"j";"f"));
+    indx:([] (Stats):(`count;`mean;`std;`min;`$"25%";`$"50%";`$"75%";`max));
+    res :(indx ^ (flip (cl)!{(count;avg;dev;min;Percentile[;25];Percentile[;50];Percentile[;75];max)@\: x}'[x[cl]]));
+    :res
+    };
+
 /check isnull
 isnull:{[x] tbl::x;flip enlist(cols(x)) ! {[y] sum all each null tbl[y]}each cols(x)}
 
